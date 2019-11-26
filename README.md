@@ -1,2 +1,2 @@
-# Selección Multiple DataTable con checkBox
+# Selección Multiple DataTables con checkBox
 Selección Múltiple con DataTables
