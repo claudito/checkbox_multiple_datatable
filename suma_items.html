@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>CheckBox Multiple</title>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+
+</head>
+<body>
+
+
+
+<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+            	  <th>id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+                <th>Porcentaje</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+    </table>
+
+<script>
+
+function loadData(){
+
+  $(document).ready(function(){
+
+    $('#example').DataTable({
+
+      ajax:{
+
+        url:'data2.json'
+
+      },
+      columns:[
+
+          {data:'id'},
+          {data:'name'},
+          {data:'position'},
+          {data:'salary'},
+          {data:'start_date'},
+          {data:'office'},
+          {data:'extn'},
+          {data:null,render:function(data){
+
+              return `<input type="number" name="porcentaje"  min="1"
+
+                  data-salario="${data.extn}"
+                  data-id="${data.id}" 
+                  class="check_item" 
+                  id="item_${data.id}"
+
+               />`;
+
+          }},
+          {data:null,render:function(data){
+
+            return `<input type="number" name="total"      data-id="${data.id}" class="sum_item" id="total_${data.id}" />`;
+
+          }},
+
+
+
+      ]
+
+
+    })
+
+
+
+  });
+
+
+}
+
+
+loadData();
+
+//Sumar por linea
+$(document).on('change','.check_item',function(){
+
+  id         = $(this).data('id');
+  salario    = $(this).data('salario');
+
+  item       = $('#item_'+id).val();
+
+
+  suma        = salario * item;
+
+  $('#total_'+id).val(suma);
+
+
+
+
+});
+
+
+</script>	
+</body>
+</html>
